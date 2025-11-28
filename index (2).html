@@ -519,10 +519,10 @@ This data is the content of the portfolio website and is the SOLE source of trut
 
                 currentRetry++;
                 try {
-                    const response = await fetch( 'https://p-backend-d9z7.onrender.com', {
+                    const response = await fetch( 'https://p-backend-d9z7.onrender.com/api/ask', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify(payload)
+                        body: JSON.stringify({ question: userQuery })
                     });
 
                     if (response.status === 429 && currentRetry < maxRetries) {
@@ -594,5 +594,6 @@ This data is the content of the portfolio website and is the SOLE source of trut
     </script>
 </body>
 </html>
+
 
 
