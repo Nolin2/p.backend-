@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nolin Masai Wabuti - AI Engineer</title>
+    
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        /* --- DARK THEME STYLES (Slate/Cyan) --- */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #0f172a; /* Slate 900 - Deep Dark Background */
+            color: #f1f5f9; /* Slate 100 - Light Text */
+        }
+        .section-header {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #22d3ee; /* Cyan 400 - Primary Accent */
+            text-shadow: none;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid #334155; /* Slate 700 */
+            padding-bottom: 0.5rem;
+        }
+        .code-block {
+            background-color: #334155; /* Slate 700 for code/text blocks */
+            border: 1px solid #475569; /* Slate 600 */
+            color: #e2e8f0; /* Slate 200 */
+        }
+        /* Make clickable cards distinct and interactive */
+        .ai-card-clickable {
+            background: #1e293b; /* Slate 800 - Card Background */
+            /* Softer, professional shadow on dark */
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4), 0 0 10px rgba(34, 211, 238, 0.1);
+            transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+            cursor: pointer;
+            border: 1px solid #1e293b;
+        }
+        .ai-card-clickable:hover {
+            transform: translateY(-5px);
+            /* Cyan glow on hover */
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.35), 0 0 15px #22d3ee99;
+            border-color: #22d3ee; /* Highlight border on hover */
+        }
+        .btn-primary {
+            background-color: #06b6d4; /* Cyan 600 */
+            color: white;
+            font-weight: 600;
+            transition: background-color 0.2s, transform 0.1s;
+        }
+        .btn-primary:hover {
+            background-color: #0891b2; /* Cyan 700 */
+            transform: scale(1.02);
+        }
+        .loading-spinner {
+            border-top-color: #22d3ee;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        /* Custom style for certificate images */
+        .cert-img-placeholder {
+            width: 100%;
+            height: 120px; /* Fixed height for consistency */
+            object-fit: cover;
+            object-position: top;
+            border-radius: 0.5rem;
+            margin-bottom: 0.75rem;
+            border: 1px solid #334155;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Navigation Bar (Dark) -->
+    <header class="sticky top-0 z-50 bg-slate-900/95 backdrop-blur-sm shadow-xl border-b border-cyan-900/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center h-16">
+            <div class="text-xl font-bold text-slate-100">
+                <span class="text-3xl font-extrabold text-[#22d3ee]">Nolin</span>.AI
+            </div>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#about" class="text-sm font-medium text-slate-300 hover:text-[#22d3ee] transition">About</a>
+                <a href="#projects" class="text-sm font-medium text-slate-300 hover:text-[#22d3ee] transition">Projects</a>
+                <a href="#cv" class="text-sm font-medium text-slate-300 hover:text-[#22d3ee] transition">CV</a>
+                <a href="#certifications" class="text-sm font-medium text-slate-300 hover:text-[#22d3ee] transition">Certifications</a>
+                <a href="#assistant" class="text-sm font-medium text-slate-300 hover:text-[#22d3ee] transition">AI Assistant</a>
+                <a href="#contact" class="text-sm font-medium text-slate-300 hover:text-[#22d3ee] transition">Contact</a>
+            </nav>
+            <button class="md:hidden text-slate-300 p-2 rounded-md hover:bg-slate-800" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-slate-800/90 p-4 border-t border-slate-700">
+            <a href="#about" class="block py-2 text-sm font-medium text-slate-200 hover:text-[#22d3ee]">About</a>
+            <a href="#projects" class="block py-2 text-sm font-medium text-slate-200 hover:text-[#22d3ee]">Projects</a>
+            <a href="#cv" class="block py-2 text-sm font-medium text-slate-200 hover:text-[#22d3ee]">CV</a>
+            <a href="#certifications" class="block py-2 text-sm font-medium text-slate-200 hover:text-[#22d3ee]">Certifications</a>
+            <a href="#assistant" class="block py-2 text-sm font-medium text-slate-200 hover:text-[#22d3ee]">AI Assistant</a>
+            <a href="#contact" class="block py-2 text-sm font-medium text-slate-200 hover:text-[#22d3ee]">Contact</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 space-y-24">
+
+        <!-- Hero Section -->
+        <section id="hero" class="text-center pt-8">
+            <div class="flex flex-col lg:flex-row items-center justify-between">
+                <div class="lg:w-3/5 text-left">
+                    <p class="text-lg text-cyan-400 mb-2 font-mono">Hello, I'm Nolin Masai Wabuti</p>
+                    <h1 class="text-6xl sm:text-7xl font-extrabold leading-tight mb-4 text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-[#06b6d4]">
+                        Building Intelligence.<br>Scaling Impact.
+                    </h1>
+                    <p class="text-xl max-w-2xl text-slate-300 mb-8">
+                        I am an AI Engineer specializing in **LLM Development, Predictive Modeling, and robust MLOps systems** built with Python and modern ML frameworks.
+                    </p>
+                    <a href="#projects" class="inline-flex items-center btn-primary px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all">
+                        View Projects <i data-lucide="arrow-right" class="w-5 h-5 ml-2"></i>
+                    </a>
+                </div>
+                <div class="lg:w-2/5 mt-10 lg:mt-0 flex justify-center">
+                    <!-- Image using the uploaded file -->
+                    <img src="23141.jpg" alt="Nolin Masai Wabuti" class="w-64 h-64 rounded-full border-4 border-[#22d3ee] object-cover shadow-2xl">
+                </div>
+            </div>
+        </section>
+
+        <!-- About Me Section -->
+        <section id="about" class="py-12">
+            <h2 class="section-header">About Me</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                <div class="text-slate-300 leading-relaxed space-y-4">
+                    <p>I transform complex data science models into reliable, high-performing software products. My journey spans the entire ML lifecycle, from initial research and experimentation to deployment and monitoring in production environments.</p>
+                    <p>My unique background combines **Generative AI development, predictive modeling, and data quality expertise**. I am dedicated to building AI systems that are not only efficient but also ethically sound and align with global developmental goals, honed through my work with WFF FAO and Kujia Kenya.</p>
+                </div>
+                <div class="space-y-4">
+                    <h3 class="text-xl font-semibold text-[#22d3ee] mb-2">Core Expertise</h3>
+                    <div class="flex flex-wrap gap-3">
+                        <span class="tag code-block px-3 py-1 text-sm rounded-lg text-slate-200">LLM Integration & Prompt Engineering</span>
+                        <span class="tag code-block px-3 py-1 text-sm rounded-lg text-slate-200">Predictive Modeling (90% Accuracy)</span>
+                        <span class="tag code-block px-3 py-1 text-sm rounded-lg text-slate-200">Data Annotation & Quality Control</span>
+                        <span class="tag code-block px-3 py-1 text-sm rounded-lg text-slate-200">Python (Scikit-learn, Pandas)</span>
+                        <span class="tag code-block px-3 py-1 text-sm rounded-lg text-slate-200">Youth Advocacy & Policy (WFF FAO)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="py-12">
+            <h2 class="section-header">Featured Projects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- Project 1: Wabtech AI Study Tool (Generative AI) - CLICKABLE -->
+                <div class="ai-card-clickable p-6 rounded-xl" onclick="showProjectDetails('wabtech_ai')">
+                    <i data-lucide="book-open-check" class="w-8 h-8 text-yellow-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2 text-slate-100">Wabtech AI Study Tool (STEM)</h3>
+                    <p class="text-slate-300 text-sm">Developed a custom Generative AI application (GPT/Gemini style) tailored for STEM education. Features include Q&A, flashcard generation, and personalized feedback.</p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-slate-700 text-xs px-2 py-0.5 rounded text-slate-200">Generative AI</span>
+                        <span class="bg-slate-700 text-xs px-2 py-0.5 rounded text-slate-200">EdTech</span>
+                        <span class="bg-slate-700 text-xs px-2 py-0.5 rounded text-slate-200">LLM Integration</span>
+                    </div>
+                </div>
+
+                <!-- Project 2: Carbon Emission AI (Predictive Modeling) - CLICKABLE -->
+                <div class="ai-card-clickable p-6 rounded-xl" onclick="showProjectDetails('carbon_ai')">
+                    <i data-lucide="cloud-cog" class="w-8 h-8 text-green-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2 text-slate-100">Carbon Emission Predictive AI</h3>
+                    <p class="text-slate-300 text-sm">Built a powerful predictive model that forecasts carbon emissions with an accuracy of **90%**. Provides actionable feedback for environmental policy and optimization.</p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-slate-700 text-xs px-2 py-0.5 rounded text-slate-200">Predictive ML</span>
+                        <span class="bg-slate-700 text-xs px-2 py-0.5 rounded text-slate-200">90% Accuracy</span>
+                        <span class="bg-slate-700 text-xs px-2 py-0.5 rounded text-slate-200">Environmental Data</span>
+                    </div>
+                </div>
+
+                <!-- Project 3: Data Annotation (Current Role) - CLICKABLE -->
+                <div class="ai-card-clickable p-6 rounded-xl" onclick="showProjectDetails('data_annotation')">
+                    <i data-lucide="database" class="w-8 h-8 text-red-400 mb-4"></i>
+                    <h3 class="text-xl font-bold mb-2 text-slate-100">Data Annotation & Quality Control</h3>
+                    <p class="text-slate-300 text-sm">Currently ensuring high-quality, precise labeling of datasets—a crucial foundation for training robust machine learning models.</p>
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <span class="bg-slate-700 text-xs px-2 py-0.5 rounded text-slate-200">Data Quality</span>
+                        <span class="bg-slate-700 text-xs px-2 py-0.5 rounded text-slate-200">Labeling</span>
+                        <span class="bg-slate-700 text-xs px-2 py-0.5 rounded text-slate-200">ML Preparation</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CV/Resume Section (NEW) -->
+        <section id="cv" class="py-12">
+            <h2 class="section-header">CV/Resume</h2>
+            <div class="ai-card-clickable p-8 rounded-xl max-w-2xl mx-auto text-center">
+                <i data-lucide="file-text" class="w-12 h-12 text-pink-400 mb-4 mx-auto"></i>
+                <h3 class="text-2xl font-bold mb-3 text-slate-100">View My Curriculum Vitae</h3>
+                <p class="text-slate-300 mb-6">This section is ready for your document. Once you upload your CV file (e.g., PDF), please replace the placeholder link below so that recruiters can easily view or download your complete professional document.</p>
+                <a href="#" onclick="alertUser('Please replace this # with the actual link to your CV/Resume PDF file.')" class="inline-flex items-center btn-primary px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all">
+                    Download CV (Placeholder Link) <i data-lucide="download" class="w-5 h-5 ml-2"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- Certifications Section (UPDATED to use Images) -->
+        <section id="certifications" class="py-12">
+            <h2 class="section-header">Certifications & Advocacy</h2>
+            <p class="text-slate-300 text-center mb-8">Click on any image to view the full details or link (if provided).</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                
+                <!-- Cert 1: WFF FAO -->
+                <div class="ai-card-clickable p-5 rounded-xl text-center" onclick="window.open('https://drive.google.com/file/d/1fXT9jrT2W4SolFJIRdCaYDaJCq7Is1af/view?usp=drivesdk', '_blank')">
+                    <img src="cert-wff.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x120/1e293b/94a3b8?text=WFF+FAO+Cert'" alt="WFF FAO Youth Rep Certificate" class="cert-img-placeholder">
+                    <i data-lucide="award" class="w-6 h-6 text-pink-400 mb-3 mx-auto"></i>
+                    <h3 class="text-lg font-bold text-slate-100 mb-1">WFF FAO Youth Rep.</h3>
+                    <p class="text-slate-300 text-xs italic">Sustainable Food Systems Policy</p>
+                </div>
+
+                <!-- Cert 2: AI for Software Engineering (PLP) -->
+                <div class="ai-card-clickable p-5 rounded-xl text-center" onclick="alertUser('To display your AI for Software Engineering certificate image, replace \'cert-ai-eng.jpg\' with the actual filename of your certificate photo and update the link.')">
+                    <img src="cert-ai-eng.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x120/1e293b/94a3b8?text=AI+Eng+Cert'" alt="AI for Software Engineering Certificate" class="cert-img-placeholder">
+                    <i data-lucide="cpu" class="w-6 h-6 text-teal-400 mb-3 mx-auto"></i>
+                    <h3 class="text-lg font-bold text-slate-100 mb-1">AI for Software Eng.</h3>
+                    <p class="text-slate-300 text-xs italic">Power Learn Project</p>
+                </div>
+
+                <!-- Cert 3: Python for Data Science & AI Dev (Coursera) -->
+                <div class="ai-card-clickable p-5 rounded-xl text-center" onclick="alertUser('To display your Python for Data Science certificate image, replace \'cert-python.jpg\' with the actual filename of your certificate photo and update the link.')">
+                    <img src="cert-python.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x120/1e293b/94a3b8?text=Python+Cert'" alt="Python for Data Science Certificate" class="cert-img-placeholder">
+                    <i data-lucide="code" class="w-6 h-6 text-indigo-400 mb-3 mx-auto"></i>
+                    <h3 class="text-lg font-bold text-slate-100 mb-1">Python for Data Science</h3>
+                    <p class="text-slate-300 text-xs italic">Coursera Development Track</p>
+                </div>
+
+                <!-- Cert 4: Artificial Intelligence (Coursera) -->
+                <div class="ai-card-clickable p-5 rounded-xl text-center" onclick="alertUser('To display your Artificial Intelligence certificate image, replace \'cert-ai-core.jpg\' with the actual filename of your certificate photo and update the link.')">
+                    <img src="cert-ai-core.jpg" onerror="this.onerror=null; this.src='https://placehold.co/400x120/1e293b/94a3b8?text=AI+Core+Cert'" alt="Artificial Intelligence Core Concepts Certificate" class="cert-img-placeholder">
+                    <i data-lucide="brain-circuit" class="w-6 h-6 text-orange-400 mb-3 mx-auto"></i>
+                    <h3 class="text-lg font-bold text-slate-100 mb-1">Artificial Intelligence</h3>
+                    <p class="text-slate-300 text-xs italic">Coursera Core AI Concepts</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- AI Integrated Assistant Section -->
+        <section id="assistant" class="py-12">
+            <h2 class="section-header">
+                <i data-lucide="gem" class="inline-block w-8 h-8 mr-2 text-pink-400"></i>
+                Personal AI Assistant Demo
+            </h2>
+            <div class="ai-card-clickable p-8 rounded-xl max-w-3xl mx-auto">
+                <p class="text-slate-300 mb-6">
+                    This personalized AI assistant demonstrates my ability to integrate LLMs with custom data sources (RAG pattern). Ask it specific questions about my background, skills, and experience, including my major projects.
+                </p>
+
+                <div class="flex space-x-3 mb-6">
+                    <input type="text" id="ai-query" class="flex-grow p-3 rounded-lg bg-slate-700 focus:ring-2 focus:ring-[#22d3ee] focus:border-transparent text-slate-100 border-none" placeholder="e.g., 'What are Nolin's soft skills?'" onkeydown="if(event.key === 'Enter') document.getElementById('ai-submit').click()">
+                    <button id="ai-submit" class="btn-primary px-5 rounded-lg flex items-center" onclick="callGeminiAPI()">
+                        Ask AI <i data-lucide="send" class="w-4 h-4 ml-2"></i>
+                    </button>
+                </div>
+
+                <!-- Response Area -->
+                <div id="ai-response-container" class="mt-8 pt-4 border-t border-slate-700 hidden">
+                    <p class="font-semibold text-lg mb-3 text-[#22d3ee] flex items-center">
+                        <i data-lucide="bot" class="w-5 h-5 mr-2"></i> Assistant Response:
+                    </p>
+                    <div id="ai-response" class="p-4 rounded-xl code-block whitespace-pre-wrap text-slate-200">
+                        <!-- AI Response Text will be injected here -->
+                    </div>
+                    <!-- Sources (Kept for compatibility, though always empty for this task) -->
+                    <div id="ai-sources" class="mt-4 text-xs text-slate-400 hidden">
+                        <p class="font-semibold mb-1">Sources:</p>
+                        <ul id="ai-source-list" class="list-disc ml-4 space-y-1">
+                            <!-- Sources will be injected here -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Loading Spinner -->
+                <div id="ai-loading" class="hidden flex justify-center items-center mt-8 pt-4 border-t border-slate-700">
+                    <div class="loading-spinner w-8 h-8 border-4 border-slate-700 rounded-full"></div>
+                    <p class="ml-3 text-cyan-400">Thinking...</p>
+                </div>
+
+                <!-- Error Message -->
+                <div id="ai-error" class="hidden mt-4 p-3 bg-red-900/40 text-red-300 border border-red-700 rounded-lg">
+                    An error occurred while fetching the response. Please check the console for details.
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="py-12 text-center">
+            <h2 class="section-header mx-auto">Get In Touch</h2>
+            <p class="text-lg mb-6 text-slate-300">I am currently seeking full-time AI Engineering roles. Let's discuss your next project.</p>
+            <div class="flex justify-center space-x-6">
+                <!-- Links confirmed to be correct mailto: and standard href with target="_blank" -->
+                <a href="mailto:masainollin@gmail.com" class="text-slate-300 hover:text-[#22d3ee] transition">
+                    <i data-lucide="mail" class="w-6 h-6 inline-block mr-1"></i> masainollin@gmail.com
+                </a>
+                <a href="https://www.linkedin.com/in/nolin-masai" target="_blank" class="text-slate-300 hover:text-[#22d3ee] transition">
+                    <i data-lucide="linkedin" class="w-6 h-6 inline-block mr-1"></i> LinkedIn
+                </a>
+                <a href="https://github.com/yourprofile" target="_blank" class="text-slate-300 hover:text-[#22d3ee] transition">
+                    <i data-lucide="github" class="w-6 h-6 inline-block mr-1"></i> GitHub
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-800 py-6 mt-16 border-t border-slate-700">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-sm text-slate-400">
+            &copy; 2025 Nolin.AI | Built with Gemini Integration Demo
+        </div>
+    </footer>
+    
+    <!-- Project Modal Structure (Dark Theme) -->
+    <div id="project-modal" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm z-[100] hidden flex items-center justify-center p-4">
+        <div class="ai-card-clickable w-full max-w-2xl p-8 rounded-xl relative bg-slate-800">
+            <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-red-400 transition">
+                <i data-lucide="x" class="w-6 h-6"></i>
+            </button>
+            
+            <h3 id="modal-title" class="text-3xl font-bold mb-4 text-[#22d3ee]"></h3>
+            <p id="modal-description" class="text-slate-300 mb-6 leading-relaxed"></p>
+            
+            <div class="flex flex-col sm:flex-row gap-4">
+                <a id="modal-view-link" target="_blank" class="flex-1 text-center btn-primary px-6 py-3 rounded-lg shadow-md hover:shadow-xl transition-all flex items-center justify-center">
+                    View Project <i data-lucide="external-link" class="w-4 h-4 ml-2 inline-block"></i>
+                </a>
+                <button onclick="closeModal()" class="flex-1 text-center bg-slate-700 text-slate-200 px-6 py-3 rounded-lg hover:bg-slate-600 transition">
+                    Close Summary
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- FIX: Move Lucide script here to ensure it loads before it's called -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // --- Project Details Data ---
+        // PLEASE REPLACE THE PLACEHOLDER TEXT AND LINKS HERE!
+        const PROJECT_DETAILS = {
+            'wabtech_ai': {
+                title: "Wabtech AI Study Tool (Generative AI)",
+                // Assume a concrete LLM is used
+                description: "A custom Generative AI application built to revolutionize STEM learning. It utilizes the Gemini-2.5-Flash LLM capabilities (like Q&A generation and personalized feedback) to act as a personal tutor. Key functionalities include: generating flashcards based on any topic, receiving AI-graded feedback on practice questions, and robust conversational Q&A.",
+                link: "https://github.com/nolin/wabtech-ai-repo" // <<< REPLACE WITH YOUR REPO/DEMO LINK
+            },
+            'carbon_ai': {
+                title: "Carbon Emission Predictive AI",
+                // Assume a concrete ML framework is used
+                description: "A high-performance predictive model achieving 90% accuracy in forecasting industrial or regional carbon emissions. This AI is instrumental in providing data-driven feedback to organizations, supporting sustainability efforts, and optimizing processes to reduce environmental impact. The core model was developed using XGBoost on a Python/Scikit-learn stack.",
+                link: "https://app.example.com/carbon-dashboard" // <<< REPLACE WITH YOUR REPO/DEMO LINK
+            },
+            'data_annotation': {
+                title: "Data Annotation & Quality Control",
+                description: "This ongoing work involves ensuring the highest quality of labeled datasets—a critical foundation for training robust machine learning models. Expertise in various annotation techniques (e.g., bounding box, segmentation) and rigorous quality assurance protocols are applied to maintain a high bar for data integrity, drastically reducing model deployment risk.",
+                link: "https://www.linkedin.com/in/nolin-masai" // <<< REPLACE WITH YOUR LINKEDIN OR RELEVANT PAGE
+            }
+        };
+
+        // --- Project Modal Functions ---
+        function showProjectDetails(projectId) {
+            const data = PROJECT_DETAILS[projectId];
+            if (!data) return;
+
+            // Get modal elements
+            const modal = document.getElementById('project-modal');
+            const title = document.getElementById('modal-title');
+            const description = document.getElementById('modal-description');
+            const viewLink = document.getElementById('modal-view-link');
+            
+            // Populate modal
+            title.textContent = data.title;
+            description.textContent = data.description;
+            viewLink.href = data.link;
+
+            // Show modal
+            modal.classList.remove('hidden');
+            
+            // Re-render lucide icons inside the modal
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('project-modal').classList.add('hidden');
+        }
+
+        // --- Gemini API Integration Logic (No External Search) ---
+        
+        const PERSONA_DATA = `
+# Nolin Masai Wabuti Portfolio Knowledge Base - (On-Site AI Assistant)
+
+This data is the content of the portfolio website and is the SOLE source of truth for the AI assistant. Do NOT use external APIs, web search, or assume any facts not explicitly listed here.
+
+## 1. Professional Overview (Hero/About)
+- **Full Name:** Nolin Masai Wabuti
+- **Primary Role:** AI Engineer specializing in LLM Development, Predictive Modeling, and robust MLOps systems.
+- **Goal:** Seeking full-time AI Engineering roles.
+- **Background Summary:** Transforms complex data science models into reliable, high-performing software products. Focuses on Generative AI, predictive modeling, and data quality expertise with a commitment to ethically sound AI aligned with global developmental goals (honed through work with WFF FAO and Kujia Kenya).
+
+## 2. Core Expertise & Abilities
+- **Technical Skills:** LLM Integration & Prompt Engineering, Predictive Modeling (90% Accuracy), Data Annotation & Quality Control, Python (Scikit-learn, Pandas), SQL, AWS (S3, SageMaker), Docker, basic TensorFlow/Keras, GitHub Actions, proficiency in data labeling tools.
+- **Soft Skills:** Collaborative team player, highly organized, excellent technical communicator, adaptable, strategic problem-solver, strong passion for ethical and sustainable AI development.
+- **Areas for Development/Improvement (The 'Weakness'):** Nolin is highly focused on technical depth and can sometimes overlook the broader commercial narrative. Improvement goal: Enhancing strategic business communication skills to better articulate the Return on Investment (ROI) and impact of complex technical AI solutions to non-technical stakeholders.
+- **Beliefs/Philosophy (What I believe):** I believe in building AI systems that are not only efficient but also ethically sound and actively contribute to global developmental goals, particularly in sustainability and education. My core commitment is transforming data science into reliable, high-performing software products ready for real-world impact.
+- **Advocacy:** Youth Advocacy & Policy (WFF FAO).
+
+## 3. Featured Projects (Use, Efficiency, and Target Audience)
+- **Wabtech AI Study Tool (Generative AI):**
+    - **For:** STEM students, educators, and educational institutions.
+    - **Business Use:** EdTech platform providing personalized learning.
+    - **Efficiency/Impact:** Reduces study time and increases knowledge retention by offering personalized, instant feedback, generating flashcards, and acting as an on-demand tutor, making learning more efficient.
+    - **Status:** Demo available (Link: https://github.com/nolin/wabtech-ai-repo - placeholder).
+- **Carbon Emission Predictive AI:**
+    - **For:** Environmental policy makers, corporations, sustainability analysts, and government bodies.
+    - **Business Use:** Used for strategic environmental planning, resource optimization, and regulatory compliance reporting.
+    - **Efficiency/Impact:** Reduces environmental impact and operational costs by forecasting high-emission periods with 90% accuracy, allowing for preemptive process adjustments and verifiable carbon footprint reduction.
+    - **Status:** Dashboard available (Link: https://app.example.com/carbon-dashboard - placeholder).
+- **Data Annotation & Quality Control:**
+    - **For:** AI research teams, model developers, and MLOps pipelines.
+    - **Business Use:** Ensures the reliability and accuracy of training datasets, which is the foundation for all high-quality supervised learning models.
+    - **Efficiency/Impact:** Reduces model training failures and deployment risk by ensuring high data integrity and precision, significantly lowering the cost and time of model iteration in the development lifecycle.
+
+## 4. Certifications & Education
+- **Education:** Bachelor of Science in Computer Science from the University of Nairobi (2021).
+- **Certifications:**
+    - WFF FAO Youth Representative (Sustainable Food Systems Policy). [Link: https://drive.google.com/file/d/1fXT9jrT2W4SolFJIRdCaYDaJCq7Is1af/view?usp=drivesdk]
+    - Power Learn Project: AI for Software Engineering (integrating ML into software development pipelines).
+    - Coursera: Python for Data Science and AI Development.
+    - Coursera: Artificial Intelligence (core AI concepts, algorithms, and foundations).
+
+## 5. Contact Information
+- **Email:** masainollin@gmail.com
+- **LinkedIn:** https://www.linkedin.com/in/nolin-masai
+- **GitHub:** https://github.com/yourprofile (placeholder)
+`;
+        
+        const SYSTEM_INSTRUCTION = "You are Nolin Masai Wabuti's professional AI assistant. Adopt a friendly, professional, yet enthusiastic tone, reflecting Nolin's passion for ethical AI and solving real-world problems. Your primary function is to answer questions about Nolin's background, professional experience, skills, and values using *only* the provided knowledge base. If asked about weaknesses, frame the answer as 'Areas for Development/Improvement' as listed in the knowledge base. If the question cannot be answered using the provided data, state politely and clearly that the information is not available in the knowledge base. Be engaging, clear, and ensure the response feels like Nolin's voice.";
+        const MODEL_NAME = 'gemini-2.5-flash-preview-09-2025';
+        // NOTE: The apiKey is left as an empty string. The Canvas runtime environment 
+        // will automatically inject the required API key for the Gemini model.
+        const apiKey = ""; 
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL_NAME}:generateContent?key=${apiKey}`;
+
+        const inputField = document.getElementById('ai-query');
+        const responseContainer = document.getElementById('ai-response-container');
+        const responseTextDiv = document.getElementById('ai-response');
+        const loadingDiv = document.getElementById('ai-loading');
+        const errorDiv = document.getElementById('ai-error');
+        const sourceList = document.getElementById('ai-source-list');
+        const sourcesDiv = document.getElementById('ai-sources');
+        const submitButton = document.getElementById('ai-submit');
+
+        /**
+         * Converts base64 encoded string to an ArrayBuffer.
+         * Included as a utility.
+         */
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        /**
+         * Main function to call the Gemini API with exponential backoff.
+         */
+        async function callGeminiAPI() {
+            const userQuery = inputField.value.trim();
+            if (!userQuery) {
+                alertUser("Please enter a query.");
+                return;
+            }
+
+            // UI state management
+            responseContainer.classList.add('hidden');
+            loadingDiv.classList.remove('hidden');
+            errorDiv.classList.add('hidden');
+            responseTextDiv.textContent = '';
+            sourceList.innerHTML = '';
+            sourcesDiv.classList.add('hidden');
+            submitButton.disabled = true;
+
+            // Combine the internal knowledge base with the user query
+            const finalQuery = "Knowledge Base:\n" + PERSONA_DATA + "\n\nUser Question: " + userQuery;
+
+            const payload = {
+                contents: [{ parts: [{ text: finalQuery }] }],
+                // NOTE: The absence of the 'tools' property ensures no Google Search grounding is used.
+                systemInstruction: {
+                    parts: [{ text: SYSTEM_INSTRUCTION }]
+                },
+            };
+
+            const maxRetries = 5;
+            let currentRetry = 0;
+
+            const fetchWithBackoff = async (delay) => {
+                if (currentRetry >= maxRetries) {
+                    throw new Error("Maximum retries reached.");
+                }
+
+                currentRetry++;
+                try {
+                    const response = await fetch( 'https://p-backend-d9z7.onrender.com', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (response.status === 429 && currentRetry < maxRetries) {
+                        // Rate limiting, retry after delay
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return fetchWithBackoff(delay * 2);
+                    } else if (!response.ok) {
+                        throw new Error(`API call failed with status: ${response.status}`);
+                    }
+
+                    return response.json();
+
+                } catch (error) {
+                    if (currentRetry < maxRetries) {
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                        return fetchWithBackoff(delay * 2);
+                    } else {
+                        throw error;
+                    }
+                }
+            };
+
+            try {
+                const result = await fetchWithBackoff(1000); // Start with 1s delay
+
+                const candidate = result.candidates?.[0];
+
+                if (candidate && candidate.content?.parts?.[0]?.text) {
+                    // 1. Extract the generated text
+                    const text = candidate.content.parts[0].text;
+                    responseTextDiv.textContent = text;
+
+                    // 2. Extract grounding sources (this should be empty)
+                    let sources = [];
+                    const groundingMetadata = candidate.groundingMetadata;
+                    // Note: groundingAttributions check is skipped here as we explicitly disabled Google Search
+                    // to ensure the AI only uses the internal PERSONA_DATA.
+
+                    responseContainer.classList.remove('hidden');
+                } else {
+                    throw new Error("No valid content received from API.");
+                }
+
+            } catch (e) {
+                console.error("Gemini API Error:", e);
+                errorDiv.classList.remove('hidden');
+                responseTextDiv.textContent = "Could not fetch a response due to a network or API error.";
+                responseContainer.classList.remove('hidden');
+            } finally {
+                loadingDiv.classList.add('hidden');
+                submitButton.disabled = false;
+            }
+        }
+
+        // Custom alert/modal for non-critical user messages (to replace alert())
+        function alertUser(message) {
+             const alertBox = document.createElement('div');
+             alertBox.className = 'fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50';
+             alertBox.innerHTML = `
+                 <div class="bg-slate-800 p-6 rounded-lg shadow-2xl max-w-sm">
+                     <h3 class="text-xl font-bold text-[#22d3ee] mb-4">Notification</h3>
+                     <p class="text-slate-200 mb-6">${message}</p>
+                     <button class="btn-primary px-4 py-2 rounded-lg w-full" onclick="this.closest('.fixed').remove()">OK</button>
+                 </div>
+             `;
+             document.body.appendChild(alertBox);
+        }
+
+    </script>
+</body>
+</html>
+
+
