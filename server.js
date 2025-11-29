@@ -25,8 +25,29 @@ if (!apiKey) {
 }
 const ai = new GoogleGenAI(apiKey);
 
-// 3. Configure Express Middleware
-app.use(cors());
+// 3. Configure Express Middleware (***CORRECTION FOR CORS POLICY ERROR***)
+const allowedOrigins = [
+    'https://nolin2.github.io', // <--- YOUR FRONTEND DOMAIN
+    'http://localhost:3000',    // <--- For local development
+    'http://localhost:10000',   // <--- If you use a different local port
+    'https://p-backend-4.onrender.com' // Allow self-requests if needed
+];
+
+app.use(cors({
+    origin: (origin, callback) => {
+        // Allow requests with no origin (like mobile apps, curl, or same origin requests)
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true);
+        } else {
+            // Block requests from unauthorized domains
+            callback(new Error(`Not allowed by CORS: ${origin}`));
+        }
+    },
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+    optionsSuccessStatus: 204 // Good practice for pre-flight requests
+}));
+
 app.use(express.json());
 // Serve the index.html file and other static assets
 app.use(express.static(__dirname));
