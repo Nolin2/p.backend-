@@ -18,12 +18,19 @@ const app = express();
 const port = process.env.PORT || 3000; // Use environment port for Render
 
 // 2. Initialize Gemini Client
-const apiKey = process.env.GEMINI_API_KEY;
-if (!apiKey) {
-    console.error("FATAL ERROR: GEMINI_API_KEY is not set.");
+const ai = new GoogleGenAI();
+
+// We keep the check to ensure the key exists in the environment, which is good practice.
+const apiKeyCheck = process.env.GEMINI_API_KEY;
+
+// 🛑 DEBUGGING LINE ADDED: Check if the key variable has a value.
+if (apiKeyCheck) {
+    console.log("DEBUG: GEMINI_API_KEY is found in process.env.");
+} else {
+    console.log("DEBUG: GEMINI_API_KEY is NOT found in process.env. Proceeding with hard exit.");
+    console.error("FATAL ERROR: GEMINI_API_KEY is not set in the environment.");
     process.exit(1);
 }
-const ai = new GoogleGenAI(apiKey);
 
 // 3. Configure Express Middleware (***CORRECTION FOR CORS POLICY ERROR***)
 const allowedOrigins = [
