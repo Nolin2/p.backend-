@@ -15,24 +15,24 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const app = express();
-const port = process.env.PORT || 3000; // Use environment port for Render
+const port = process.env.PORT || 10000; // Updated to 10000 based on your logs
 
-// 2. Initialize Gemini Client
-const ai = new GoogleGenAI();
+// 2. Initialize Gemini Client (***CRITICAL FIX FOR TYPERROR***)
+const apiKey = process.env.GEMINI_API_KEY;
 
-// We keep the check to ensure the key exists in the environment, which is good practice.
-const apiKeyCheck = process.env.GEMINI_API_KEY;
-
-// 🛑 DEBUGGING LINE ADDED: Check if the key variable has a value.
-if (apiKeyCheck) {
-    console.log("DEBUG: GEMINI_API_KEY is found in process.env.");
-} else {
-    console.log("DEBUG: GEMINI_API_KEY is NOT found in process.env. Proceeding with hard exit.");
+// Critical check: Ensure the key is present before initialization
+if (!apiKey) {
     console.error("FATAL ERROR: GEMINI_API_KEY is not set in the environment.");
-    process.exit(1);
+    // Exiting here ensures the server doesn't crash later on an API call.
+    process.exit(1); 
 }
 
-// 3. Configure Express Middleware (***CORRECTION FOR CORS POLICY ERROR***)
+// FIX: Explicitly pass the apiKey in an object. This resolves the internal
+// "reading 'project'" TypeError by forcing the library to use the API key method.
+const ai = new GoogleGenAI({ apiKey: apiKey });
+
+
+// 3. Configure Express Middleware (CORS is already correctly configured)
 const allowedOrigins = [
     'https://nolin2.github.io', // <--- YOUR FRONTEND DOMAIN
     'http://localhost:3000',    // <--- For local development
@@ -130,6 +130,7 @@ app.post('/api/ask-ai', async (req, res) => {
         res.json({ text: response.text });
         
     } catch (error) {
+        // This catch block handles the error you are seeing when the API call fails
         console.error("Gemini API Error:", error.message);
         res.status(500).json({ 
             error: "Failed to communicate with the AI model.",
