@@ -1,17 +1,26 @@
-// server.js
+// server.js (ES Module Syntax)
 
-// 1. Load Environment Variables and Dependencies
-require('dotenv').config();
-const express = require('express');
-const { GoogleGenAI } = require('@google/genai');
-const cors = require('cors');
+// 1. Load Environment Variables and Dependencies using 'import'
+import 'dotenv/config'; // 'dotenv/config' handles the config() call directly
+import express from 'express';
+import { GoogleGenAI } from '@google/genai';
+import cors from 'cors';
+
+// Note: __dirname is not defined in ES Module scope. 
+// We need to define it for express.static
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000; // Use environment port for Render
 
 // 2. Initialize Gemini Client
 const apiKey = process.env.GEMINI_API_KEY;
 if (!apiKey) {
-    console.error("FATAL ERROR: GEMINI_API_KEY is not set in the .env file.");
+    console.error("FATAL ERROR: GEMINI_API_KEY is not set.");
     process.exit(1);
 }
 const ai = new GoogleGenAI(apiKey);
@@ -19,10 +28,10 @@ const ai = new GoogleGenAI(apiKey);
 // 3. Configure Express Middleware
 app.use(cors());
 app.use(express.json());
-// Serve the index.html file and other static assets (like images)
+// Serve the index.html file and other static assets
 app.use(express.static(__dirname));
 
-// 4. Define the Knowledge Base (RAG Data)
+// 4. Define the Knowledge Base (RAG Data) (Keep this the same)
 const PERSONA_DATA = {
     name: "Nolin Masai Wabuti",
     role: "AI Engineer specializing in LLM Development and Predictive Modeling.",
@@ -103,9 +112,5 @@ app.post('/api/ask-ai', async (req, res) => {
 
 // 9. Start the Server
 app.listen(port, () => {
-    console.log(`\n🎉 Nolin's AI Assistant Server is running!`);
-    console.log(`🚀 Access the portfolio at: http://localhost:${port}/index.html`);
-    console.log(`👂 Listening for API calls on http://localhost:${port}/api/ask-ai`);
-    console.log(`\n--------------------------------------------------------------`);
-    console.log(`Remember to open index.html in your browser and click 'Ask AI'.`);
+    console.log(`\n🎉 Nolin's AI Assistant Server is running on port ${port}!`);
 });
