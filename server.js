@@ -30,7 +30,7 @@ const allowedOrigins = [
     'https://nolin2.github.io', // <--- YOUR FRONTEND DOMAIN
     'http://localhost:3000',    // <--- For local development
     'http://localhost:10000',   // <--- If you use a different local port
-    'https://p-backend-4.onrender.com' // Allow self-requests if needed
+    'https://p-backend-5.onrender.com' // Allow self-requests if needed
 ];
 
 app.use(cors({
