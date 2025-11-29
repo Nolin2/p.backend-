@@ -1,21 +1,25 @@
 {
   "name": "p.backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Nolin Masai Wabuti AI Assistant Backend",
   "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "gemini",
+    "ai",
+    "node",
+    "express"
+  ],
+  "author": "Nolin Masai Wabuti",
   "license": "ISC",
   "dependencies": {
-    "@google/generative-ai": "^0.24.1",
+    "@google/genai": "^0.15.0",
     "cors": "^2.8.5",
-    "dotenv": "^17.2.3",
-    "express": "^5.1.0"
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
   }
 }
-
